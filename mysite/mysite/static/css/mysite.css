@@ -1,0 +1,15 @@
+.form-control{
+
+  border-radius: 10px;
+}
+
+.pres_image {
+  flex: 1;
+  max-width: 200px;
+  margin-right: 1rem;
+}
+
+.pres_text {
+  flex: 2;
+  padding: 1rem;
+}

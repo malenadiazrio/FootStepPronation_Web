@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block extra_css %}
+    <style>
+      body{
+        padding-top: 100px;
+      }
+    </style>
+{% endblock %}
+{% block content %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+<center><h1 class="display-4">{{ page.name_title }}</h1></center>
+<div>
+    <center><p>{{ page.name_subtitle|richtext }}</p></center>
+</div>
+
+<center>
+  <div class="container-fluid" style="height:100%; padding-top:3%; display: block; overflow: auto;">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+      .file-drop-area {
+          position: relative;
+          display: flex;
+          align-items: center;
+          max-width: 100%;
+          padding: 25px;
+          border: 1px dashed rgba(255, 255, 255, 0.4);
+          border-radius: 3px;
+          transition: .2s
+        }
+
+      .choose-file-button {
+          flex-shrink: 0;
+          /* background-color: rgba(255, 255, 255, 0.04); */
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 3px;
+          padding: 8px 15px;
+          margin-right: 10px;
+          font-size: 12px;
+          text-transform: uppercase
+        }
+
+      .file-message {
+          font-size: small;
+          font-weight: 300;
+          line-height: 1.4;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis
+        }
+
+      .file-input {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          widows: 100%;
+          cursor: pointer;
+          opacity: 0
+        }
+    </style>
+    <script type="text/javascript">
+      $(document).on('change', '.file-input', function() {
+          var filesCount = $(this)[0].files.length;
+          var textbox = $(this).prev();
+          if (filesCount === 1) {
+          var fileName = $(this).val().split('\\').pop();
+          textbox.text(fileName);
+          } else {
+          textbox.text(filesCount + ' files selected');
+          }
+          if (typeof (FileReader) != "undefined") {
+          var dvPreview = $("#divImageMediaPreview");
+          dvPreview.html("");
+          var index =0;
+          $($(this)[0].files).each(function () {
+          var file = $(this);
+          var reader = new FileReader();
+          reader.onload = function (e) {
+          var img = $("<img />");
+          img.attr("style", "width: 150px; height:100px; padding: 10px");
+          img.attr("src", e.target.result);
+          img.attr("name", name+index);
+          index=index+1;
+          dvPreview.append(img);
+          }
+          reader.readAsDataURL(file[0]);
+          });
+          } else {
+          alert("This browser does not support HTML5 FileReader.");
+          }
+          });
+    </script>
+
+    <form class="input-group mb-3" method="POST" enctype="multipart/form-data" id="form1">
+          <div class="file-drop-area"> <span class="choose-file-button btn-primary">Choose Files</span> <span class="file-message">or drag and drop files here</span> <input type="file" name="file_data" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif,.MOV,.MP4" > </div>
+          {% csrf_token %}
+          <div class="container-fluid p-2">
+                <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04">Upload</button>
+          </div>
+    </form>
+    <h6>List of selected/uploaded files <span style="font-style: italic">(click to open in new tab)</span>: </h6>
+    <ul>
+
+    {% for my_file1 in my_uploaded_file_names %}
+      <li class="text-white"><a class="text-black" href="{{my_file1}}" target="_blank" style="text-decoration:none;">{{my_file1}}</a></li>
+    {% endfor %}
+
+    </ul>
+<br><br><br>
+
+</div>
+</center>
+
+<div class=" ">
+  <form method="POST" id="start">
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit" name="start" id="start">Start</button>
+  </form>
+</div>
+
+<div class=" " style="margin-bottom:400px;">
+    <ul class="nav nav-tabs" id="myTab">
+      <li class="nav-item">
+        <a class="nav-link active" id="image-tab" data-toggle="tab" data-target="#home"  aria-controls="home">Raw Images</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="result-tab" data-toggle="tab" data-target="#profile1" aria-controls="profile1">Result Images</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent" style=" ">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="image-tab">
+        <br>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            {% for my_file in my_uploaded_file_names %}
+                  <li data-target="#carouselExampleIndicators" data-slide-to={{forloop.counter0}} class="{% if forloop.first %} active {% endif %}" aria-current="true" aria-label={{forloop.counter}}></li>
+            {% endfor %}
+          </ol>
+          <div class="carousel-inner">
+            {% for my_file1 in my_uploaded_file_names %}
+                <div class="carousel-item {% if forloop.first %} active {% endif %} ">
+                  <a href="{{my_file1}}" target="_blank"><img src="{{my_file1}}" class="d-block w-100"></a>
+                <!-- <img src="{{my_file1}}" class="d-block w-100"> -->
+                </div>
+            {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="result-tab">
+        <!-- This is result images. -->
+        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            {% for my_file2 in my_result_file_names %}
+                  <li data-target="#carouselExampleIndicators2" data-slide-to={{forloop.counter0}} class="{% if forloop.first %} active {% endif %}" aria-current="true" aria-label={{forloop.counter}}></li>
+            {% endfor %}
+          </ol>
+          <div class="carousel-inner">
+            {% for my_file3 in my_result_file_names %}
+                <div class="carousel-item {% if forloop.first %} active {% endif %} ">
+                  <a href="{{my_file3}}" target="_blank"><img src="{{my_file3}}" class="d-block w-100"></a>
+                </div>
+            {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+wheel
+Django
+django-allauth
+django-extensions
+django-filter
+django-modelcluster
+django-taggit
+django-treebeard
+djangorestframework
+matplotlib
+numpy
+opencv-python
+Pillow
+requests
+uuid
+wagtail
