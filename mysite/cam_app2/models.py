@@ -43,6 +43,9 @@ def reset():
             file.truncate(0)
             file.close()
 
+def test():
+    print("yes")
+
 # Create your models here.
 class ImagePage(Page):
     """Image Page."""
@@ -123,7 +126,12 @@ class ImagePage(Page):
                     f.write("\n")
 
                 context["my_uploaded_file_names"].append(str(f'{str(filename)}'))
+
+                
             return render(request, "cam_app2/image.html", context)
         context = self.reset_context(request)
         reset()
         return render(request, "cam_app2/image.html", {'page': self})
+    
+    
+    test()
