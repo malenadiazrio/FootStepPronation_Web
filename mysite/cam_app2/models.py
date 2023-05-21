@@ -12,7 +12,7 @@ from wagtail.admin.panels import (
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from django.core.files.storage import default_storage
-
+from model_integration.yoloact_custom import eval_yoloact
 from pathlib import Path
 
 
@@ -23,11 +23,14 @@ str_uuid = uuid.uuid4()  # The UUID for image uploading
 def reset():
     files_result = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/Result/*.*')), recursive=True)
     files_upload = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/uploadedPics/*.*')), recursive=True)
+    files_temp = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/videoFrames/*.*')), recursive=True)
     files = []
-    if len(files_result) != 0:
-        files.extend(files_result)
+    # if len(files_result) != 0:
+    #     files.extend(files_result)
     if len(files_upload) != 0:
         files.extend(files_upload)
+    if len(files_temp) != 0:
+        files.extend(files_temp)
     if len(files) != 0:
         for f in files:
             try:
@@ -43,8 +46,10 @@ def reset():
             file.truncate(0)
             file.close()
 
-def test():
-    print("yes")
+def test(filename):
+    # print("Lets analyze the video {}".format(filename))
+    # eval_yoloact(filename)
+    return os.listdir(os.path.join(settings.MEDIA_ROOT, "Result"))
 
 # Create your models here.
 class ImagePage(Page):
@@ -87,25 +92,16 @@ class ImagePage(Page):
             res_f_root = os.path.join(settings.MEDIA_ROOT, 'Result')
             with open(Path(f'{settings.MEDIA_ROOT}/uploadedPics/img_list.txt'), 'r') as f:
                 image_files = f.readlines()
-            if len(image_files)>=0:
-                for file in image_files:
+            r_file_paths = test(image_files[0])
+            if len(r_file_paths)>=0:
+                for r_file in r_file_paths:
                     ###
                     # For each file, read, pass to model, do something, save it #
                     ###
-                    filename = file.split('/')[-1]
-                    filepath = os.path.join(fileroot, filename)
-                    img = cv2.imread(filepath.strip())
-                    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                    fn = filename.split('.')[:-1][0]
-                    r_filename = f'result_{fn}.jpeg'
-                    print(r_filename)
-                    cv2.imwrite(str(os.path.join(res_f_root, r_filename)), gray)
-                    r_media_filepath = Path(f"{settings.MEDIA_URL}Result/{r_filename}")
-                    print(r_media_filepath)
-                    with open(Path(f'{settings.MEDIA_ROOT}/Result/Result.txt'), 'a') as f:
-                        f.write(str(r_media_filepath))
-                        f.write("\n")
-                    context["my_uploaded_file_names"].append(str(f'{str(file)}'))
+                    if r_file.split('.')[-1] == 'txt':
+                        continue
+                    r_media_filepath = Path(f"{settings.MEDIA_URL}Result/{r_file}")
+                    context["my_uploaded_file_names"].append(str(f'{str(image_files[0])}'))
                     context["my_result_file_names"].append(str(f'{str(r_media_filepath)}'))
             return render(request, "cam_app2/image.html", context)
 
@@ -124,14 +120,10 @@ class ImagePage(Page):
                 with open(Path(f'{settings.MEDIA_ROOT}/uploadedPics/img_list.txt'), 'a') as f:
                     f.write(str(filename))
                     f.write("\n")
-
                 context["my_uploaded_file_names"].append(str(f'{str(filename)}'))
 
-                
             return render(request, "cam_app2/image.html", context)
         context = self.reset_context(request)
         reset()
         return render(request, "cam_app2/image.html", {'page': self})
     
-    
-    test()

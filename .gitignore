@@ -4,7 +4,8 @@ env
 **/.pyc
 **/.DS_Store
 **/migrations/*
-media/Result/*
-media/uploadedPics/*
-media/videoFrames/*
-yoloact/weights/*
+./media/Result/
+mysite/media/uploadedPics/*
+mysite/media/videoFrames/*
+mysite/yoloact/weights/
+mysite/media/Result/*
