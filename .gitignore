@@ -1,5 +1,10 @@
 venv
+env
 **/__pycache__
 **/.pyc
 **/.DS_Store
 **/migrations/*
+media/Result/*
+media/uploadedPics/*
+media/videoFrames/*
+yoloact/weights/*
