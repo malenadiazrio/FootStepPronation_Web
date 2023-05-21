@@ -47,8 +47,8 @@ def reset():
             file.close()
 
 def test(filename):
-    # print("Lets analyze the video {}".format(filename))
-    # eval_yoloact(filename)
+    print("Analyzing the video {}".format(filename))
+    eval_yoloact(filename)
     return os.listdir(os.path.join(settings.MEDIA_ROOT, "Result"))
 
 # Create your models here.

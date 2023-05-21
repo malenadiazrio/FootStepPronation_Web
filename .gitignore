@@ -7,5 +7,5 @@ env
 ./media/Result/
 mysite/media/uploadedPics/*
 mysite/media/videoFrames/*
-mysite/yoloact/weights/
+mysite/yoloact_custom/weights/
 mysite/media/Result/*
