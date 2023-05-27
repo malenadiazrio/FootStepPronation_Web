@@ -91,20 +91,59 @@
           }
           });
     </script>
-
+    <h6 style="margin-top: 30px;border:3px solid rgb(192, 0, 0); width: 350px;">Video Guidelines!</h6>
+    <span style="margin-top: 30px; width: 350px;">- The video must be centered and recorded from behind the treadmill. 
+    </span>
+    <div>
+    </div>
+    <span style="width: 350px;">- The camera of the phone should be at the same level as the treadmill. 
+    </span>
+    <div>
+    </div>
+    <span style="width: 350px;">- The camera should record from the sole of the shoe to 5-10cms above the knee. 
+    </span>
+    <div>
+    </div>
+    <span style="width: 350px;">- The video must be recorded with the phone placed vertically, not horizontally.
+    </span>
+    <div>
+    </div>
+    <span style="width: 350px;">- The subject  should be recorded with shoes on, however shorts or tights must be worn (no wide pants)
+    </span>
+    <div>
+    </div>
+    <span style="width: 350px;">- The subject should run at a comfortable pace, almost a sprint (≈ 9km/h).
+    </span>
+    <div>
+    </div>
+    <span style="width: 350px;">- The video should be about 10-15 seconds long.
+    </span>
+    <h6 style="margin-top: 30px;border:3px solid rgb(0, 81, 75); width: 350px;">Step One: Choose your video</h6>
     <form class="input-group mb-3" method="POST" enctype="multipart/form-data" id="form1">
-          <div class="file-drop-area"> <span class="choose-file-button btn-primary">Choose Files</span> <span class="file-message">or drag and drop files here</span> <input type="file" name="file_data" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif,.MOV,.MP4" > </div>
+      
+          <div class="file-drop-area"  style="margin-left:450px;">  <span class="choose-file-button btn-primary">Choose Files</span> <input type="file" name="file_data" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif,.MOV,.MP4" > </div>
           {% csrf_token %}
-          <div class="container-fluid p-2">
-                <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04">Upload</button>
+          <div class="container-fluid p-2" style="margin-right:730px;">
+            <center>
+              <h6 style="margin-right: 740px; margin-left: 360px; border:3px solid rgb(0, 81, 75); width: 350px;">Step Two: Upload your video</h6>
+            </center>
+            
+            <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04">Upload</button>   
           </div>
+          
     </form>
-    <h6>List of selected/uploaded files <span style="font-style: italic">(click to open in new tab)</span>: </h6>
+  
+    <form class="input-group mb-3" method="POST" enctype="multipart/form-data" id="form1">
+      
+    </form>
+    
+    
+    <h6>Uploaded Video: <span style="font-style: italic"></span> </h6>
     <ul>
 
-    {% for my_file1 in my_uploaded_file_names %}
+    <!-- {% for my_file1 in my_uploaded_file_names %} -->
       <li class="text-white"><a class="text-black" href="{{my_file1}}" target="_blank" style="text-decoration:none;">{{my_file1}}</a></li>
-    {% endfor %}
+    <!-- {% endfor %} -->
 
     </ul>
 <br><br><br>
@@ -115,7 +154,11 @@
 <div class=" ">
   <form method="POST" id="start">
     {% csrf_token %}
-    <button class="btn btn-primary" type="submit" name="start" id="start">Start</button>
+    <center>
+      <h6 style="border:3px solid rgb(0, 81, 75); width: 350px;"><center>Step Three: Click Start to start the Pronation Detection!</center></h6>
+    </center>
+    
+    <button style="margin-left:530px;" class="btn btn-primary" type="submit" name="start" id="start">Start</button>
   </form>
 </div>
 

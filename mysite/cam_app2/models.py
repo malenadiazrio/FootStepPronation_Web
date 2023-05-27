@@ -25,8 +25,8 @@ def reset():
     files_upload = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/uploadedPics/*.*')), recursive=True)
     files_temp = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/videoFrames/*.*')), recursive=True)
     files = []
-    # if len(files_result) != 0:
-    #     files.extend(files_result)
+    if len(files_result) != 0:
+         files.extend(files_result)
     if len(files_upload) != 0:
         files.extend(files_upload)
     if len(files_temp) != 0:
