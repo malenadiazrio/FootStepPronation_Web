@@ -1060,7 +1060,7 @@ if __name__ == '__main__':
         set_cfg(args.config)
 
     if args.trained_model == 'interrupt':
-        args.trained_model = SavePath.get_interrupt('/yoloact/weights/')
+        args.trained_model = SavePath.get_interrupt('/weights/')
     elif args.trained_model == 'latest':
         args.trained_model = SavePath.get_latest('weights/', cfg.name)
 

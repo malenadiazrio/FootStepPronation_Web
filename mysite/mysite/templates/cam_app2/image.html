@@ -91,140 +91,110 @@
           }
           });
     </script>
-    <h6 style="margin-top: 30px;border:3px solid rgb(192, 0, 0); width: 350px;">Video Guidelines!</h6>
-    <span style="margin-top: 30px; width: 350px;">- The video must be centered and recorded from behind the treadmill. 
-    </span>
-    <div>
-    </div>
-    <span style="width: 350px;">- The camera of the phone should be at the same level as the treadmill. 
-    </span>
-    <div>
-    </div>
-    <span style="width: 350px;">- The camera should record from the sole of the shoe to 5-10cms above the knee. 
-    </span>
-    <div>
-    </div>
-    <span style="width: 350px;">- The video must be recorded with the phone placed vertically, not horizontally.
-    </span>
-    <div>
-    </div>
-    <span style="width: 350px;">- The subject  should be recorded with shoes on, however shorts or tights must be worn (no wide pants)
-    </span>
-    <div>
-    </div>
-    <span style="width: 350px;">- The subject should run at a comfortable pace, almost a sprint (≈ 9km/h).
-    </span>
-    <div>
-    </div>
-    <span style="width: 350px;">- The video should be about 10-15 seconds long.
-    </span>
-    <h6 style="margin-top: 30px;border:3px solid rgb(0, 81, 75); width: 350px;">Step One: Choose your video</h6>
-    <form class="input-group mb-3" method="POST" enctype="multipart/form-data" id="form1">
-      
-          <div class="file-drop-area"  style="margin-left:450px;">  <span class="choose-file-button btn-primary">Choose Files</span> <input type="file" name="file_data" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif,.MOV,.MP4" > </div>
-          {% csrf_token %}
-          <div class="container-fluid p-2" style="margin-right:730px;">
-            <center>
-              <h6 style="margin-right: 740px; margin-left: 360px; border:3px solid rgb(0, 81, 75); width: 350px;">Step Two: Upload your video</h6>
-            </center>
-            
-            <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04">Upload</button>   
+    <script>
+    function goToYouTube() {
+      window.open("https://youtube.com/shorts/S_OdMIUayJw?feature=share", "_blank")
+        }
+    </script>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header" style="align-items: center;">
+              <h5>Video Guidelines</h5>
+            </div>
+            <div class="card-body" >
+              <div style="text-align: left;">
+                <p>- The camera of the phone should be at the same level as the treadmill.</p>
+                <p>- The camera should record from the sole of the shoe to 5-10cms above the knee.</p>
+                <p>- The video must be recorded with the phone placed vertically, not horizontally.</p>
+                <p>- The subject  should be recorded with shoes on, however shorts or tights must be worn (no wide pants)</p>
+                <p>- The subject should run at a comfortable pace, almost a sprint (≈ 9km/h).</p>
+                <p>- The video should be about 10-15 seconds long.</p>
+              </div>
+              <button class="btn btn-secondary" onclick="goToYouTube()">Checkout a sample</button>
+            </div>
           </div>
-          
-    </form>
-  
-    <form class="input-group mb-3" method="POST" enctype="multipart/form-data" id="form1">
-      
-    </form>
-    
-    
-    <h6>Uploaded Video: <span style="font-style: italic"></span> </h6>
-    <ul>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header" style="align-items: center;">
+              <h5>Instructions</h5>
+            </div>
+            <div class="card-body">
+                <form class="input-group mb-3" method="POST" enctype="multipart/form-data" id="form1" >
+                  <row style="width: 100%;text-align: left;">
+                  <p><b>Step One: Choose your video</b></p>
+                    <div class="file-drop-area" style="padding: 0px"> 
+                      <span class="choose-file-button btn-secondary">Choose Files</span> 
+                      <input type="file" name="file_data" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif,.MOV,.MP4" > 
+                    </div>
+                  </row>
+                  {% csrf_token %}
+                  <row style="width: 100%;text-align: left;padding-top: 20px">
+                    <div>
+                    <p><b>Step Two: Upload your video</b></p>
+                    <button class="btn btn-secondary" type="submit" id="inputGroupFileAddon04">Upload</button>       
+                    </div>
+                  </row>  
+                <form>
+                <row style="width: 100%;text-align: left;padding-top: 10px">
+                    <p>Uploaded Video:</p>
+                    <ul>          
+                    <!-- {% for my_file1 in my_uploaded_file_names %} -->
+                      <li class="text-white"><a class="text-black" href="{{my_file1}}" target="_blank" style="text-decoration:none;">{{my_file1}}</a></li>
+                    <!-- {% endfor %} -->                
+                    </ul>
+                </row> 
+                <row style="width: 100%;text-align: left;padding-top: 20px">
+                  <p><b>Step Three: Click Start to start the Pronation Detection!</b></p>
+                  <form method="POST" id="start">
+                    {% csrf_token %}                 
+                    <button class="btn btn-secondary" type="submit" name="start" id="start">Start</button>
+                    <br><br>
+                    <p>Be patient and do not close the tab! The analysis may take a while.</p>
+                  </form>
+                </row> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!-- {% for my_file1 in my_uploaded_file_names %} -->
-      <li class="text-white"><a class="text-black" href="{{my_file1}}" target="_blank" style="text-decoration:none;">{{my_file1}}</a></li>
-    <!-- {% endfor %} -->
-
-    </ul>
 <br><br><br>
 
 </div>
 </center>
-
-<div class=" ">
-  <form method="POST" id="start">
-    {% csrf_token %}
-    <center>
-      <h6 style="border:3px solid rgb(0, 81, 75); width: 350px;"><center>Step Three: Click Start to start the Pronation Detection!</center></h6>
-    </center>
-    
-    <button style="margin-left:530px;" class="btn btn-primary" type="submit" name="start" id="start">Start</button>
-  </form>
-</div>
+<hr>
+<h5>Results:</h5>
+{% if classification_results %}
+  <p><b>Left leg: </b>{{classification_results.0}}</p>
+  <p><b>Right leg: </b>{{classification_results.1}}</p>
+{% endif%}
 
 <div class=" " style="margin-bottom:400px;">
-    <ul class="nav nav-tabs" id="myTab">
-      <li class="nav-item">
-        <a class="nav-link active" id="image-tab" data-toggle="tab" data-target="#home"  aria-controls="home">Raw Images</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="result-tab" data-toggle="tab" data-target="#profile1" aria-controls="profile1">Result Images</a>
-      </li>
-    </ul>
-
-    <div class="tab-content" id="myTabContent" style=" ">
-      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="image-tab">
-        <br>
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            {% for my_file in my_uploaded_file_names %}
-                  <li data-target="#carouselExampleIndicators" data-slide-to={{forloop.counter0}} class="{% if forloop.first %} active {% endif %}" aria-current="true" aria-label={{forloop.counter}}></li>
-            {% endfor %}
-          </ol>
-          <div class="carousel-inner">
-            {% for my_file1 in my_uploaded_file_names %}
-                <div class="carousel-item {% if forloop.first %} active {% endif %} ">
-                  <a href="{{my_file1}}" target="_blank"><img src="{{my_file1}}" class="d-block w-100"></a>
-                <!-- <img src="{{my_file1}}" class="d-block w-100"> -->
-                </div>
-            {% endfor %}
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
+      <!-- This is result images. -->
+    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" >
+      <ol class="carousel-indicators">
+        {% for my_file2 in my_result_file_names %}
+              <li data-target="#carouselExampleIndicators2" data-slide-to={{forloop.counter0}} class="{% if forloop.first %} active {% endif %}" aria-current="true" aria-label={{forloop.counter}}></li>
+        {% endfor %}
+      </ol>
+      <div class="carousel-inner">
+        {% for my_file3 in my_result_file_names %}
+            <div class="carousel-item {% if forloop.first %} active {% endif %} ">
+              <a href="{{my_file3}}" target="_blank"><img src="{{my_file3}}" class="d-block w-100" ></a>
+            </div>
+        {% endfor %}
       </div>
-
-      <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="result-tab">
-        <!-- This is result images. -->
-        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            {% for my_file2 in my_result_file_names %}
-                  <li data-target="#carouselExampleIndicators2" data-slide-to={{forloop.counter0}} class="{% if forloop.first %} active {% endif %}" aria-current="true" aria-label={{forloop.counter}}></li>
-            {% endfor %}
-          </ol>
-          <div class="carousel-inner">
-            {% for my_file3 in my_result_file_names %}
-                <div class="carousel-item {% if forloop.first %} active {% endif %} ">
-                  <a href="{{my_file3}}" target="_blank"><img src="{{my_file3}}" class="d-block w-100"></a>
-                </div>
-            {% endfor %}
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
 </div>
 

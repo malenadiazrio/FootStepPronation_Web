@@ -12,7 +12,7 @@ from wagtail.admin.panels import (
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from django.core.files.storage import default_storage
-from model_integration.yoloact_custom import eval_yoloact
+from model_integration.yoloact_custom import eval_yoloact, postprocessing, convert_to_images
 from pathlib import Path
 
 
@@ -22,11 +22,14 @@ str_uuid = uuid.uuid4()  # The UUID for image uploading
 
 def reset():
     files_result = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/Result/*.*')), recursive=True)
+    files_finalImages = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/finalImages/*.*')), recursive=True)
     files_upload = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/uploadedPics/*.*')), recursive=True)
     files_temp = glob.glob(str(Path(f'{settings.MEDIA_ROOT}/videoFrames/*.*')), recursive=True)
     files = []
     if len(files_result) != 0:
-         files.extend(files_result)
+        files.extend(files_result)
+    if len(files_finalImages) != 0:
+        files.extend(files_finalImages)
     if len(files_upload) != 0:
         files.extend(files_upload)
     if len(files_temp) != 0:
@@ -48,10 +51,12 @@ def reset():
 
 def test(filename):
     print("Analyzing the video {}".format(filename))
+    convert_to_images(filename)
     eval_yoloact(filename)
-    return os.listdir(os.path.join(settings.MEDIA_ROOT, "Result"))
+    left_leg, right_leg = postprocessing()
+    return ['left.jpg', 'right.jpg'], left_leg, right_leg
 
-# Create your models here.
+# Create yours models here.
 class ImagePage(Page):
     """Image Page."""
 
@@ -81,6 +86,7 @@ class ImagePage(Page):
         context["my_staticSet_names"]= []
         context["my_lines"]= []
         return context
+    
 
     def serve(self, request):
         emptyButtonFlag = False
@@ -92,7 +98,9 @@ class ImagePage(Page):
             res_f_root = os.path.join(settings.MEDIA_ROOT, 'Result')
             with open(Path(f'{settings.MEDIA_ROOT}/uploadedPics/img_list.txt'), 'r') as f:
                 image_files = f.readlines()
-            r_file_paths = test(image_files[0])
+            context["status"] = 0
+            r_file_paths, left_leg, right_leg = test(image_files[0])
+            context["classification_results"] = [left_leg, right_leg]
             if len(r_file_paths)>=0:
                 for r_file in r_file_paths:
                     ###
@@ -100,8 +108,8 @@ class ImagePage(Page):
                     ###
                     if r_file.split('.')[-1] == 'txt':
                         continue
-                    r_media_filepath = Path(f"{settings.MEDIA_URL}Result/{r_file}")
-                    context["my_uploaded_file_names"].append(str(f'{str(image_files[0])}'))
+                    r_media_filepath = Path(f"{settings.MEDIA_URL}finalImages/{r_file}")
+                    #context["my_uploaded_file_names"].append(str(f'{str(image_files[0])}'))
                     context["my_result_file_names"].append(str(f'{str(r_media_filepath)}'))
             return render(request, "cam_app2/image.html", context)
 

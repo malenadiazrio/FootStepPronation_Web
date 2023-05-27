@@ -20,13 +20,13 @@
 
   <br>
   {# Example of an Orderable from home/models.py #}
-  <div class="container-fluid">
+  <div class="container-fluid" style="max-width:800px">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             {% for loop_cycle in self.carousel_images.all %}
                 {% image loop_cycle.carousel_image height-600 as img %}
                 <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">
-                    <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}">
+                    <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}"  ∑>
                 </div>
             {% endfor %}
         </div>
