@@ -26,7 +26,7 @@ def eval_yoloact(filename):
     if len(os.listdir(FRAMES_DIR)) > 0:
         print("Generating predictions")
         images_tag = "{}:{}".format(FRAMES_DIR, RESULTS_DIR)
-        weights_path = 'yolact/weights/yolact_plus_resnet50_foot_pron_201_15090_interrupt.pth'
+        weights_path = 'yolact/weights/yolact_plus_resnet50_foot_pron_402_14879_interrupt.pth'
         command = "python yolact/eval.py --trained_model {} --config yolact_resnet50_foot_pron_config --score_threshold 0.15 --top_k 1 --cuda False --output_coco_json --images {}".format(weights_path, images_tag)
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
