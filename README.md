@@ -31,6 +31,7 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
+    <a href="#project-property">Project property</a>
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
@@ -48,7 +49,6 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#make-your-app">Make your app</a></li>
     <li><a href="#resources">Resources</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -57,6 +57,8 @@
 </details>
 
 
+## Project property
+This web app is based on the Basic Web App repository available at  https://github.com/GitarthVaishnav/Basic_Web_App.git property of GitarthVaishnav. In this extension, slight modifications are made to the original web in order to integrate it with the FootPronAI project. 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -126,8 +128,18 @@ Overall, the simple web app is a valuable resource for developers interested in 
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/GitarthVaishnav/Basic_Web_App.git
+   git clone  https://github.com/malenadiazrio/FootStepPronation_Web
    ```
+ 2. Go inside the mysite folder and clone the custom yolact repo. Pull the changes from the main branch. Rename that folder to yolact. 
+ ```sh
+  cd mysite 
+  git clone https://github.com/malenadiazrio/yolact_custom.git
+  git checkout main 
+  git pull origin main
+  mv yolact_custom yolact
+ ```
+ 3. Create a weights folder in the yolact repo and paste the weights available at the following link: 
+    https://drive.google.com/file/d/1-JFNO2tD006ib9qB0ZfJGMuv2o9dTqd_/view?usp=sharing 
 
 ### Prerequisites
 
@@ -203,30 +215,6 @@ Follow the steps to start the simple web application after the libraries are ins
     ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- Make your app  -->
-## Make your app
-
-There are two options to make your own app:
-1. Start from scratch, i.e., not building up on this app, but starting fresh and then doing everything on your own.
-    Check out: [Option1 Documentation](https://github.com/GitarthVaishnav/Basic_Web_App/blob/master/Docs/Option1.md)
-2. Build on this app, i.e., modify this app by installing this app and then changing everything as per your requirements.
-    Check out: [Option2 Documentation](https://github.com/GitarthVaishnav/Basic_Web_App/blob/master/Docs/Option2.md)
-
-<br>
-
-> **Note for Students (specially for students of the subject: 42028 Deep Learning and CNNs of UTS):**
-> 
-> I strongly recommend that you choose **Option-2** for your project. While the provided app is a basic, vanilla-level baseline, it is important to note that using this app with only minor modifications may result in heavy penalties. To avoid these penalties, I strongly recommend making **significant** modifications and additions to the app, including but not limited to functionalities, style, pages, UI/UX, AI, look and feel, optimisation and edge-case testing.
-> 
-> I would also like to remind you that the provided app is the intellectual property of **Gitarth Vaishnav**. Any use of this app should be accompanied by proper **attribution** (including but not limited to visibility in the code, report, and the actual interface/system), in accordance with academic integrity policies.
-> 
-> Please note that copying the app as is, with only minor or little modifications, may result in accusations of plagiarism and penalties.
-> 
-> Thank you for your understanding and adherence to the academic integrity policies of the university.
-
-
-
 <br>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -271,10 +259,13 @@ Distributed under the Custom License. See [`LICENSE`](https://github.com/Gitarth
 <!-- CONTACT -->
 ## Contact
 
+FootStep pronation extension:
+Malena Díaz Río - malena.diazrio@student.uts.edu.au
+
+Original code creator:
 Gitarth Vaishnav - [@GitarthVaishnav](https://linkedin.com/in/gitarthvaishnav)
 
 Email: Gitarthv@outlook.com | Gitarth.Vaishnav@uts.edu.au
-
 
 Github Link: [@GitarthVaishnav](https://github.com/GitarthVaishnav/)
 
