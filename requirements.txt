@@ -18,3 +18,5 @@ numpy
 torch
 pycocotools
 torchvision
+skimage
+scikit-learn
